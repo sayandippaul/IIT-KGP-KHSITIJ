@@ -84,7 +84,7 @@ app.post('/upload', upload.single('fileInput'), (req, res) => {
 
     var medicinearray=[];
     var s="Congratulation your medicine is booked!here are the list<hr>",sum=0;
-
+      // var hitted=0;
     for (var k = 0; k < originalarray.length; k++) {
       for (var j = 0; j < medicines.length; j++) {
       // console.log(originalarray[k]);

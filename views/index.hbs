@@ -347,17 +347,16 @@ localStorage.setItem("previouschat",chatbox.innerHTML);
 
 
 var output=0;
-const handleChat = () => {
-    userMessage = chatInput.value.trim();
-    // s=convertSentence(userMessage);
-    // Get user entered message and remove extra whitespace
-    if(!userMessage) return;
-var ds={input:userMessage};
-var ans="";
+const handleChat = async () => {
+  // Get user entered message and remove extra whitespace
+  const userMessage = chatInput.value.trim();
+  if (!userMessage) return;
 
+  const ds = { input: userMessage };
+  let ans = "";
 
-
-      fetch(url+"/output", {
+  try {
+    const response = await fetch(url + "/output", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -367,57 +366,44 @@ var ans="";
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(ds),
-    })
+    });
 
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-ans=data;
-       
-      })
-      .catch((err) => console.log(err));
+    const data = await response.json();
+    console.log(data);
+    ans = data;
+  } catch (err) {
+    console.error(err);
+  }
 
-    // Clear the input textarea and set its height to default
-    chatInput.value = "";
-    chatInput.style.height = `${inputInitHeight}px`;
+  // Clear the input textarea and set its height to default
+  chatInput.value = "";
+  chatInput.style.height = `${inputInitHeight}px`;
 
-    // Append the user's message to the chatbox
-chatbox.appendChild(createChatLi(userMessage,"outgoing"));
-localStorage.setItem("previouschat",chatbox.innerHTML);
+  // Append the user's message to the chatbox
+  chatbox.appendChild(createChatLi(userMessage, "outgoing"));
+  localStorage.setItem("previouschat", chatbox.innerHTML);
 
+  chatbox.scrollTo(0, chatbox.scrollHeight);
 
-    chatbox.scrollTo(0, chatbox.scrollHeight);
-    const incomingChatLi = createChatLi("Thinking...", "incoming");
-        chatbox.appendChild(incomingChatLi);
-        chatbox.scrollTo(0, chatbox.scrollHeight);
-        
+  // Display "Thinking..." message while waiting for the response
+  const incomingChatLi = createChatLi("Thinking...", "incoming");
+  chatbox.appendChild(incomingChatLi);
+  chatbox.scrollTo(0, chatbox.scrollHeight);
 
-        console.log(ans);
-    setTimeout(() => {
-        // Display "Thinking..." message while waiting for the response
-        if(typeof ans=="object"){
-
-        
-          speakvoice(ans.message);
-          generateResponse(incomingChatLi,ans.message);
-          // generateResponse(incomingChatLi,ans.message);
-
-          createchart(ans);
-          startVideo();
-      }
-      else{
-        speakvoice(ans);
-        generateResponse(incomingChatLi,ans);
-          // generateResponse(incomingChatLi,ans.message);
-
-          // createchart(ans);
-          startVideo();
-     
-      }
-        
-        
-    }, 5500);
-}
+  setTimeout(() => {
+    // Handle the response
+    if (typeof ans === "object") {
+      speakvoice(ans.message);
+      generateResponse(incomingChatLi, ans.message);
+      createchart(ans);
+      startVideo();
+    } else {
+      speakvoice(ans);
+      generateResponse(incomingChatLi, ans);
+      startVideo();
+    }
+  }, 5500);
+};
 
 chatInput.addEventListener("input", () => {
     // Adjust the height of the input textarea based on its content
