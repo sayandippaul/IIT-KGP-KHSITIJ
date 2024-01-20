@@ -95,6 +95,8 @@ localStorage.setItem("previouschat","");
  else{
  }
 
+var url="https://med-ai-et9j.onrender.com";
+//url="http://localhost:5000";
 
 
   const chatbotToggler = document.querySelector(".chatbot-toggler");
@@ -355,7 +357,7 @@ var ans="";
 
 
 
-      fetch("http://localhost:5000/output", {
+      fetch(url+"/output", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -581,7 +583,7 @@ var ans="";
                     localStorage.setItem("previouschat",chatbox.innerHTML);
 
                     
-                    fetch('http://localhost:5000/upload', {
+                    fetch(url+'/upload', {
                         method: 'POST',
                         body: formData,
                     })
