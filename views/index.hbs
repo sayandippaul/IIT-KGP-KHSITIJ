@@ -73,6 +73,9 @@
         <p>Hi there 👋<br>How can I help you today?</p>
       </li>
     </ul>
+    <main>
+        <div id="qrcode"></div>
+    </main>
     <div class="chat-input">
       <textarea id="inputmsg" placeholder="Enter a message..." spellcheck="false" required> </textarea>
       
@@ -95,8 +98,8 @@ localStorage.setItem("previouschat","");
  else{
  }
 
-var url="https://med-ai-et9j.onrender.com";
-{{!-- var url="http://localhost:5000"; --}}
+{{!-- var url="https://med-ai-et9j.onrender.com"; --}}
+var url="http://localhost:5000";
 
 
   const chatbotToggler = document.querySelector(".chatbot-toggler");
@@ -320,12 +323,15 @@ function createchart(obj) {
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
         // console.log(`${key}: ${obj[key]}`);
-        if(`${key}`!="message")
+        if(`${key}`!="message" && `${key}`!="emergency")
         html=html+"<p>"+`${key}`+":"+ `${obj[key]}`+"</p>"
       }
       if(`${key}`=="emergency"){
         console.log("generating");
-        generateqrcode("https://chat.1410inc.xyz/?room=Emergency_Appointment_oa6npblh5s");
+        
+ createqr("","incoming","");
+localStorage.setItem("previouschat",chatbox.innerHTML);
+
       }
       if(`${key}`=="video"){
         searchYouTube(userMessage);
@@ -347,16 +353,17 @@ localStorage.setItem("previouschat",chatbox.innerHTML);
 
 
 var output=0;
-const handleChat = async () => {
-  // Get user entered message and remove extra whitespace
-  const userMessage = chatInput.value.trim();
-  if (!userMessage) return;
+const handleChat = () => {
+    userMessage = chatInput.value.trim();
+    // s=convertSentence(userMessage);
+    // Get user entered message and remove extra whitespace
+    if(!userMessage) return;
+var ds={input:userMessage};
+var ans="";
 
-  const ds = { input: userMessage };
-  let ans = "";
 
-  try {
-    const response = await fetch(url + "/output", {
+
+      fetch(url+"/output", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -366,44 +373,58 @@ const handleChat = async () => {
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify(ds),
-    });
+    })
 
-    const data = await response.json();
-    console.log(data);
-    ans = data;
-  } catch (err) {
-    console.error(err);
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+ans=data;
+       
+      })
+      .catch((err) => console.log(err));
 
-  // Clear the input textarea and set its height to default
-  chatInput.value = "";
-  chatInput.style.height = `${inputInitHeight}px`;
+    // Clear the input textarea and set its height to default
+    chatInput.value = "";
+    
+    {{!-- chatInput.style.height = `${inputInitHeight}px`; --}}
 
-  // Append the user's message to the chatbox
-  chatbox.appendChild(createChatLi(userMessage, "outgoing"));
-  localStorage.setItem("previouschat", chatbox.innerHTML);
+    // Append the user's message to the chatbox
+chatbox.appendChild(createChatLi(userMessage,"outgoing"));
+localStorage.setItem("previouschat",chatbox.innerHTML);
 
-  chatbox.scrollTo(0, chatbox.scrollHeight);
 
-  // Display "Thinking..." message while waiting for the response
-  const incomingChatLi = createChatLi("Thinking...", "incoming");
-  chatbox.appendChild(incomingChatLi);
-  chatbox.scrollTo(0, chatbox.scrollHeight);
+    chatbox.scrollTo(0, chatbox.scrollHeight);
+    const incomingChatLi = createChatLi("Thinking...", "incoming");
+        chatbox.appendChild(incomingChatLi);
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+        
 
-  setTimeout(() => {
-    // Handle the response
-    if (typeof ans === "object") {
-      speakvoice(ans.message);
-      generateResponse(incomingChatLi, ans.message);
-      createchart(ans);
-      startVideo();
-    } else {
-      speakvoice(ans);
-      generateResponse(incomingChatLi, ans);
-      startVideo();
-    }
-  }, 5500);
-};
+        console.log(ans);
+    setTimeout(() => {
+        // Display "Thinking..." message while waiting for the response
+        if(typeof ans=="object"){
+
+        
+          speakvoice(ans.message);
+          generateResponse(incomingChatLi,ans.message);
+          // generateResponse(incomingChatLi,ans.message);
+
+          createchart(ans);
+          startVideo();
+      }
+      else{
+        speakvoice(ans);
+        generateResponse(incomingChatLi,ans);
+          // generateResponse(incomingChatLi,ans.message);
+
+          // createchart(ans);
+          startVideo();
+     
+      }
+        
+        
+    }, 5500);
+}
 
 chatInput.addEventListener("input", () => {
     // Adjust the height of the input textarea based on its content
@@ -730,17 +751,18 @@ function startVideo() {
 //             }
 //         }, 3000);
 
-const createqr = (message, className) => {
+const createqr = (message, className,link) => {
     // Create a chat <li> element with passed message and className
     const chatLi = document.createElement("li");
     chatLi.classList.add("chat", `${className}`);
-    let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
-    chatLi.innerHTML = chatContent;
-    chatLi.querySelector("p").innerHTML = `<main>
-        <div id="qrcode"></div>
-    </main>
+   
+    chatLi.innerHTML = `<img style="height:200px;width:200px;"src="qr.png" alt="qr">
   `;
-    return chatLi; // return chat <li> element
+   var chatbox = document.querySelector(".chatbox");
+    chatbox.appendChild(chatLi);
+
+  
+
 }
 
 
@@ -748,11 +770,9 @@ const createqr = (message, className) => {
 function generateqrcode(link){
     
     
- chatbox.appendChild(createqr("","incoming"));
-localStorage.setItem("previouschat",chatbox.innerHTML);
+ {{!-- ; --}}
 
-
-    var qrcode = new QRCode("qrcode",link);
+    {{!-- var qrcode = new QRCode("qrcode",link); --}}
    
 }
 </script>
