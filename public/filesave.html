@@ -1,0 +1,126 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Example</title>
+</head>
+<body>
+
+    <input type="file" id="fileInput" />
+    <button onclick="saveFile()">Upload and Save</button>
+
+    <script>
+        function saveFile() {
+            // Get the input element
+            var fileInput = document.getElementById('fileInput');
+
+            // Check if a file is selected
+            if (fileInput.files.length > 0) {
+                // Get the selected file
+                var file = fileInput.files[0];
+
+                // Create a new FileReader
+                var reader = new FileReader();
+
+                // Read the file as a data URL
+                reader.readAsDataURL(file);
+
+                // Set up the onload event to handle the file data
+                reader.onload = function () {
+                    // Get the data URL result
+                    var dataURL = reader.result;
+
+                    // Create a new Blob from the data URL
+                    var blob = dataURLtoBlob(dataURL);
+
+                    // Create a link element
+                    var link = document.createElement('a');
+
+                    // Set the download attribute with the desired filename
+                    link.download = 'prescription.jpeg';
+
+                    // Create a URL for the Blob data
+                    var url = URL.createObjectURL(blob);
+
+                    // Set the href attribute of the link to the Blob URL
+                    link.href = url;
+
+                    // Append the link to the document
+                    document.body.appendChild(link);
+
+                    // Trigger a click event on the link to initiate the download
+                    link.click();
+
+                    // Remove the link from the document
+                    document.body.removeChild(link);
+                };
+            } else {
+                alert('Please select a file to upload.');
+            }
+        }
+
+        // Function to convert data URL to Blob
+        function dataURLtoBlob(dataURL) {
+            var arr = dataURL.split(',');
+            var mime = arr[0].match(/:(.*?);/)[1];
+            var bstr = atob(arr[1]);
+            var n = bstr.length;
+            var u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new Blob([u8arr], { type: mime });
+        }
+    </script>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload Example</title>
+</head>
+<body>
+
+    <button onclick="uploadFile()">Upload and Save</button>
+
+    <script>
+        function uploadFile() {
+            // Create an input element dynamically
+            var fileInput = document.createElement('input');
+            fileInput.type = 'file';
+
+            // Trigger a click event on the input element
+            fileInput.click();
+
+            // Handle the file selection
+            fileInput.addEventListener('change', function () {
+                var file = fileInput.files[0];
+
+                if (file) {
+                    var formData = new FormData();
+                    formData.append('fileInput', file);
+
+                    fetch('http://localhost:5000/upload', {
+                        method: 'POST',
+                        body: formData,
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                } else {
+                    alert('Please select a file to upload.');
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

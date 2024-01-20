@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Search</title>
+</head>
+<body>
+
+<h1>YouTube Video Search</h1>
+
+<div>
+    <label for="query">Enter your YouTube search query:</label>
+    <input type="text" id="query" placeholder="e.g., funny cats">
+    <button onclick="searchYouTube()">Search</button>
+</div>
+
+<div id="results">
+    <!-- Results will be displayed here -->
+</div>
+
+<script>
+    function searchYouTube() {
+        // Get the user's search query
+        var query = document.getElementById("query").value;
+
+        // Make sure the query is not empty
+        if (query.trim() === "") {
+            alert("Please enter a search query.");
+            return;
+        }
+
+        // Fetch YouTube videos using the API
+        fetch(`https://www.googleapis.com/youtube/v3/search?q=${query}&part=snippet&maxResults=5&key=AIzaSyCSZDg-69xCM1Mpyidx3Lex9Abd1RKp4Uo`)
+            .then(response => response.json())
+            .then(data => {
+                // Display the results
+                displayResults(data.items);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    function displayResults(videos) {
+        // Clear previous results
+        document.getElementById("results").innerHTML = "";
+
+        // Display each video result
+        videos.forEach(video => {
+            if (video.id.kind === 'youtube#video') {
+                var resultDiv = document.createElement("div");
+                resultDiv.innerHTML = `
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/${video.id.videoId}" frameborder="0" allowfullscreen></iframe>
+                    <hr>
+                `;
+                document.getElementById("results").appendChild(resultDiv);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
