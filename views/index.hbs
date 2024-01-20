@@ -98,8 +98,8 @@ localStorage.setItem("previouschat","");
  else{
  }
 
-var url="https://med-ai-et9j.onrender.com";
-{{!-- var url="http://localhost:5000"; --}}
+{{!-- var url="https://med-ai-et9j.onrender.com"; --}}
+var url="http://localhost:5000";
 
 
   const chatbotToggler = document.querySelector(".chatbot-toggler");
@@ -365,6 +365,7 @@ var ans="";
 
       fetch(url+"/output", {
       method: "POST",
+         mode: "no-cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -598,6 +599,7 @@ var ans="";
                     .then(data => {
                         console.log(data);
                          ans=data;
+                         
       //                   const incomingChatLi = createChatLi("Thinking...", "incoming");
       //   chatbox.appendChild(incomingChatLi);
       //   chatbox.scrollTo(0, chatbox.scrollHeight);
