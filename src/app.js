@@ -297,7 +297,7 @@ var text=[
 },
 {
   "name":"angry",
-  "keywords":"Frustrated  agitated  stressed out   out of place out of my mind Exasperated high temper on the edge of frustration Tempers running high Under pressure Strained overwhelmed Unsettled",
+  "keywords":"Frustrated  agitated angry angry   stressed out   out of place out of my mind Exasperated high temper on the edge of frustration Tempers running high Under pressure Strained overwhelmed Unsettled",
   "message": [
     "Stay attentive to both physical and emotional signals, take breaks to regain composure, and practice deep breathing for a sense of calmness.",
     "Be aware of signs indicating rising anger, step away to cool down, and engage in slow, deep breaths to manage emotional responses effectively.",
@@ -1153,24 +1153,20 @@ var object ={"message":"We are providing videos.","video":1};
   }
   //physical   solve
   if(text[i].name=="bone" ||text[i].name=="allergies" ||text[i].name=="flu" ||text[i].name=="skin" ||text[i].name=="hair" ||text[i].name=="heart" ||text[i].name=="fever" ||text[i].name=="blood" ||text[i].name=="scratch" ||text[i].name=="organfailure" ||text[i].name=="foodpoisioning" ||text[i].name=="eye" ||text[i].name=="brain" || isphysical==1){
+    // console.log(emergencydoctors);
+    var output = text[i].message[Math.floor(Math.random() * text[i].message.length)];
+    for(var j=0;j<emergencydoctors.length;j++){
+      console.log(emergencydoctors[j].genre,text[i].name);
+      if(emergencydoctors[j].genre==text[i].name){
+        output=output+"<hr>You can also Visit this doctor <hr>Name: "+emergencydoctors[j].name+"<hr>Clinic: "+emergencydoctors[j].clinic;
+        console.log(output);
+        return output;
 
-    if(isphysical==1){
-      if(original.includes('yes')){
+      }
 
-        isphysical=0;
-        // return "we are providing some videos to make your mood happy";
-      }
-      else{
-        var s
-        return ;
-      }
     }
-    else{
-      isphysical=1;
-      var output = text[i].message[Math.floor(Math.random() * text[i].message.length)]+" if you want to get doctors suggestion related your   type 'yes' then i will provide doctors ";
-      return output;
+    return output;
     
-    }
   }
 
   
