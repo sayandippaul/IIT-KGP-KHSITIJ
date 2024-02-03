@@ -42,6 +42,14 @@ app.get("/profile", (req, res) => {
   // res.send("hello")
   res.render("index");
 });
+app.get("/login", (req, res) => {
+  // res.send("hello")
+  res.render("login");
+});
+app.get("/about", (req, res) => {
+  // res.send("hello")
+  res.render("about");
+});
 
 
 
@@ -100,7 +108,7 @@ if (metaphone.compare(medicines[j].name, originalarray[k])  ) {
         }
         
       }
-      if(s==""){
+      if(sum==0){
         s="Sorry to say I have not found any medicine according to your prescription"
       }
       else{
@@ -112,7 +120,7 @@ if (metaphone.compare(medicines[j].name, originalarray[k])  ) {
   //  var object ={"message":"your medicines order are ready","medicine":1,};
    res.json(s);
 
-  }, 5000);
+  }, 1000);
   
 
 });
@@ -221,7 +229,6 @@ var sense=[
       
   }
 ];
-
 var text=[
   {
     "name": "default",
@@ -280,13 +287,13 @@ var text=[
 },
 {
   "name":"features",
-  "keywords":"Aspect trait peculiarity details Resources emphasize Tool ",
+  "keywords":"Feature key feature main feature Aspect trait peculiarity details Resources emphasize Tool ",
   "message": '',
 
 },
 {
   "name":"thanking",
-  "keywords":"Appreciate Thank you Thanks Pleased Glad Awesome I got this I   better i am glad great to see good to know ",
+  "keywords":"Appreciate Thank you Thanks Pleased Glad Awesome I got this I better i am glad great to see good to know ",
   "message": [" You're doing great! ",
   "We're proud of your commitment to your health.",
   "Thank you for using our app! We're happy to be a part of your journey.",
@@ -310,7 +317,7 @@ var text=[
 },
 {
   "name":"sorry",
-  "keywords":"My apologies sincere apologies sorry to hear that i apologize i didn't understand i was confused ",
+  "keywords":"My apologies sincere apologies sorry to hear that i apologize i didn't understand i was confused very sorry extremely sorry so sorry",
   "message": ["My apologies for the inconvenience. Is there anything I can do to help?",
       "I apologize for the miscommunication. Let me try again.",
       "I understand your frustration, and I'm here to help you find a solution.",
@@ -375,7 +382,7 @@ var text=[
 },
 {
   "name":"flu",
-  "keywords":"Sniffles sneezes cruddy Bugged down Influenza-like illness Runny nose cough   feverish sore throat aching muscle fatigue headache congestion viral",
+  "keywords":"Sniffles sneezes cruddy Bugged down Influenza-like illness Runny nose cough   feverish sore throat aching muscle fatigue headache congestion viral flu sneezing flu cough",
   "message": ["  unwell? Let's assess your symptoms.",
       "Think you might have a cold/flu? Here's what to do.Drink plenty of fluids, such as water, herbal teas, and clear broths.Decongestants and antihistamines may help alleviate nasal congestion and sneezing.Gargle with Saltwater.Use Nasal Saline Drops",
       "Worried about your symptoms? Let's Seek medical advice.Drink plenty of fluids, such as water, herbal teas, and clear broths.Decongestants and antihistamines may help alleviate nasal congestion and sneezing.Gargle with Saltwater.Use Nasal Saline Drops",
@@ -434,7 +441,7 @@ var text=[
 }
 ,{
   "name":"scratch",
-  "keywords":"Redness Swelling Infection Scarring Swollen and painful lymph nodes.",
+  "keywords":"Redness Swelling Infection Scarring Swollen and painful lymph nodes scratch cut pain blood cut scratch deep cut deep scratch small scratch scratches",
   "message":["Concerned about your scratches? Let's explore your symptoms together.Clean the scratch gently with mild soap and water. Avoid using harsh substances like hydrogen peroxide, as they can damage healthy tissue.Apply an over-the-counter antiseptic ointment or cream to help prevent infection. Common options include Neosporin or Polysporin.Cover the scratch with a sterile bandage or dressing to protect it from dirt and bacteria.Apply a hypoallergenic, fragrance-free moisturizer to keep the skin around the scratch hydrated.Keep an eye on the scratched area for signs of infection, such as increased redness, swelling, warmth, or the presence of pus. If infection is suspected, seek medical attention.",
   "Want to get informed about your scratches? We can certainly help you in that.Clean the scratch gently with mild soap and water. Avoid using harsh substances like hydrogen peroxide, as they can damage healthy tissue.Apply an over-the-counter antiseptic ointment or cream to help prevent infection. Common options include Neosporin or Polysporin.Cover the scratch with a sterile bandage or dressing to protect it from dirt and bacteria.Apply a hypoallergenic, fragrance-free moisturizer to keep the skin around the scratch hydrated.Keep an eye on the scratched area for signs of infection, such as increased redness, swelling, warmth, or the presence of pus. If infection is suspected, seek medical attention.",
   "Experiencing swelling or redness? We can connect you with resources and solution to decrease those effect.Clean the scratch gently with mild soap and water. Avoid using harsh substances like hydrogen peroxide, as they can damage healthy tissue.Apply an over-the-counter antiseptic ointment or cream to help prevent infection. Common options include Neosporin or Polysporin.Cover the scratch with a sterile bandage or dressing to protect it from dirt and bacteria.Apply a hypoallergenic, fragrance-free moisturizer to keep the skin around the scratch hydrated.Keep an eye on the scratched area for signs of infection, such as increased redness, swelling, warmth, or the presence of pus. If infection is suspected, seek medical attention.",
@@ -457,7 +464,7 @@ var text=[
 }
 ,{
   "name":"heart",
-  "keywords":"Cardiac conditions Circulatory issues Rhythm disturbances Chest discomfort   out of breath My heart  s off Having palpitations or fluttering blood preesure fall blood pressure rise ",
+  "keywords":"Cardiac conditions Circulatory issues Rhythm disturbances Chest discomfort   out of breath My heart  s off Having palpitations or fluttering blood preesure fall blood pressure rise heart heart fail heart failure ",
   "message": ["Concerned about your heart health? We can assess your symptoms.Schedule regular checkups with your healthcare provider to monitor your heart health and address any emerging issues.Practice stress-reducing techniques such as mindfulness, meditation, yoga, or deep-breathing exercises.",
       "Are you   pain or strain in your chest? Can you please provide some more symptomps so that we can diagnose it.Schedule regular checkups with your healthcare provider to monitor your heart health and address any emerging issues.Practice stress-reducing techniques such as mindfulness, meditation, yoga, or deep-breathing exercises.If you have been diagnosed with a heart condition, take medications exactly as prescribed by your healthcare provider.Eat a balanced and heart-healthy diet that includes fruits, vegetables, whole grains, lean proteins, and limited saturated fats and sodium.",
       "Experiencing chest pain or shortness of breath? Seek immediate emergency medical attention.Schedule regular checkups with your healthcare provider to monitor your heart health and address any emerging issues.Practice stress-reducing techniques such as mindfulness, meditation, yoga, or deep-breathing exercises.If you have been diagnosed with a heart condition, take medications exactly as prescribed by your healthcare provider.Eat a balanced and heart-healthy diet that includes fruits, vegetables, whole grains, lean proteins, and limited saturated fats and sodium.",
@@ -469,7 +476,7 @@ var text=[
 }
 ,{
   "name":"blood",
-  "keywords":"Circulatory disorders Clotting or bleeding issues Immune system abnormalities   tired & weak Easy bruising or bleeding Having frequent infections vomiting",
+  "keywords":"Circulatory disorders Clotting or bleeding issues Immune system abnormalities   tired & weak Easy bruising or bleeding Having frequent infections vomiting blood bleed blood",
   "message": ["Concerned about your blood health? We can assess your symptoms.Disorders affecting blood vessels (like atherosclerosis or vasculitis) may require lifestyle changes such as a heart-healthy diet, regular exercise, and medication management. In some cases, surgical interventions or procedures like angioplasty may be recommended.If you have a clotting disorder (such as deep vein thrombosis or hemophilia), treatment may involve medications to prevent or dissolve blood clots. In some cases, anticoagulants (blood thinners) may be prescribed.Adjusting your diet to include iron-rich foods (for iron-deficiency anemia), vitamin B12, and folic acid can be important in managing certain blood  s.If you have anemia (a condition characterized by a shortage of red blood cells or hemoglobin), your treatment may involve addressing the underlying cause. This could include dietary changes, iron supplementation, vitamin B12 or folic acid supplements, or, in severe cases, blood transfusions.",
       "can you specify some particular symptomps? If they are severe immediately call ambulance for emergency.Disorders affecting blood vessels (like atherosclerosis or vasculitis) may require lifestyle changes such as a heart-healthy diet, regular exercise, and medication management. In some cases, surgical interventions or procedures like angioplasty may be recommended.If you have a clotting disorder (such as deep vein thrombosis or hemophilia), treatment may involve medications to prevent or dissolve blood clots. In some cases, anticoagulants (blood thinners) may be prescribed.Adjusting your diet to include iron-rich foods (for iron-deficiency anemia), vitamin B12, and folic acid can be important in managing certain blood  s.If you have anemia (a condition characterized by a shortage of red blood cells or hemoglobin), your treatment may involve addressing the underlying cause. This could include dietary changes, iron supplementation, vitamin B12 or folic acid supplements, or, in severe cases, blood transfusions.",
       "Experiencing fatigue or easy bruising? Let's find possible causes.Disorders affecting blood vessels (like atherosclerosis or vasculitis) may require lifestyle changes such as a heart-healthy diet, regular exercise, and medication management. In some cases, surgical interventions or procedures like angioplasty may be recommended.If you have a clotting disorder (such as deep vein thrombosis or hemophilia), treatment may involve medications to prevent or dissolve blood clots. In some cases, anticoagulants (blood thinners) may be prescribed.Adjusting your diet to include iron-rich foods (for iron-deficiency anemia), vitamin B12, and folic acid can be important in managing certain blood  s.If you have anemia (a condition characterized by a shortage of red blood cells or hemoglobin), your treatment may involve addressing the underlying cause. This could include dietary changes, iron supplementation, vitamin B12 or folic acid supplements, or, in severe cases, blood transfusions.",
@@ -491,7 +498,7 @@ var text=[
 }
 ,{
   "name":"burnedorgan",
-  "keywords":"pain burned burn tissue Signs of shock, such as rapid heart rate, low blood pressure, and confusion Loss of Consciousness  ",
+  "keywords":"pain burned burn tissue Signs of shock rapid Loss of Consciousness burn 2nd degree burn 3rd degree burn burn ",
   "message":["Concerned about burned organs? We can assess your symptoms.Unlike superficial burns on the skin, internal burns cannot be treated at home. Do not attempt to administer any remedies or medications without professional medical guidance.Unlike superficial burns on the skin, internal burns cannot be treated at home. Do not attempt to administer any remedies or medications without professional medical guidance.Emergency medical professionals will assess the severity of the internal burns and initiate appropriate treatment, which may involve surgery, fluid resuscitation, pain management, and other measures.",
   "can you specify some particular symptomps? If they are severe immediately call ambulance for emergency.Unlike superficial burns on the skin, internal burns cannot be treated at home. Do not attempt to administer any remedies or medications without professional medical guidance.Emergency medical professionals will assess the severity of the internal burns and initiate appropriate treatment, which may involve surgery, fluid resuscitation, pain management, and other measures.",
   "Want tips for treating burned organs? I have expert advice to share with you.Unlike superficial burns on the skin, internal burns cannot be treated at home. Do not attempt to administer any remedies or medications without professional medical guidance.Emergency medical professionals will assess the severity of the internal burns and initiate appropriate treatment, which may involve surgery, fluid resuscitation, pain management, and other measures."
@@ -502,7 +509,7 @@ var text=[
 
 ,{
   "name":"hair",
-  "keywords":"Scalp and hair abnormalities hair loss Scalp irritation or inflammation Hair texture changes Scalp issues dandruff or itchiness dry hair premature white hair lice",
+  "keywords":"Scalp and hair abnormalities hair loss Scalp irritation or inflammation Hair texture changes Scalp issues dandruff or itchiness dry hair premature white hair lice oily hair itchy hair broken hair broken scalp damaged hair",
   "message" :["Concerned about hair- s? We can assess your symptoms.Eat a balanced diet rich in vitamins and minerals to support overall hair health. Include foods with iron, zinc, omega-3 fatty acids, and biotin.Use a mild, sulfate-free shampoo and conditioner suitable for your hair type. Avoid washing your hair too frequently, as it can strip natural oils.Gently massage your scalp to stimulate blood flow, which may encourage hair growth. You can do this while shampooing or use essential oils for a soothing massage.If you have dandruff, use an anti-dandruff shampoo containing ingredients like zinc pyrithione, ketoconazole, or selenium sulfide. Use it regularly to control flakes.Minimize the use of harsh chemicals, such as perming or coloring agents, which can damage hair. If you use these products, follow the instructions carefully and consider professional application.",
   "can you specify some particular symptomps? If they are severe immediately call ambulance for emergency.Eat a balanced diet rich in vitamins and minerals to support overall hair health. Include foods with iron, zinc, omega-3 fatty acids, and biotin.Use a mild, sulfate-free shampoo and conditioner suitable for your hair type. Avoid washing your hair too frequently, as it can strip natural oils.Gently massage your scalp to stimulate blood flow, which may encourage hair growth. You can do this while shampooing or use essential oils for a soothing massage.If you have dandruff, use an anti-dandruff shampoo containing ingredients like zinc pyrithione, ketoconazole, or selenium sulfide. Use it regularly to control flakes.Minimize the use of harsh chemicals, such as perming or coloring agents, which can damage hair. If you use these products, follow the instructions carefully and consider professional application.",
   "Want tips for treating hair- s? I have expert advice to share with you.Eat a balanced diet rich in vitamins and minerals to support overall hair health. Include foods with iron, zinc, omega-3 fatty acids, and biotin.Use a mild, sulfate-free shampoo and conditioner suitable for your hair type. Avoid washing your hair too frequently, as it can strip natural oils.Gently massage your scalp to stimulate blood flow, which may encourage hair growth. You can do this while shampooing or use essential oils for a soothing massage.If you have dandruff, use an anti-dandruff shampoo containing ingredients like zinc pyrithione, ketoconazole, or selenium sulfide. Use it regularly to control flakes.Minimize the use of harsh chemicals, such as perming or coloring agents, which can damage hair. If you use these products, follow the instructions carefully and consider professional application."
@@ -511,7 +518,7 @@ var text=[
 }
 ,{
   "name":"foodpoisoning",
-  "keywords":"Foodborne illness   unwell or heavy after eating upset stomach nausea vomiting urge to vomit throw up stomach cramps and chills acidity inflamation stomach burning stomach pain chest burning sensation loose motion ",
+  "keywords":"Foodborne illness   unwell or heavy after eating upset stomach nausea vomiting urge to vomit throw up stomach cramps and chills acidity inflamation stomach burning stomach pain chest burning sensation loose motion vomit throw up loose motion food poison poisoning food poisonous",
   "message":["Concerned about food-poisoning? We can assess your symptoms.Antidiarrheal medications (e.g., loperamide) may help control diarrhea. However, it's important to consult with a healthcare professional before using these medications, especially in cases of bacterial or parasitic infections.A heating pad or warm compress on the abdomen may help alleviate stomach cramps.Drink plenty of fluids, such as water, oral rehydration solutions, clear broths, or electrolyte drinks, to prevent dehydration.",
   "can you specify some particular symptomps? If they are severe immediately call ambulance for emergency.Antidiarrheal medications (e.g., loperamide) may help control diarrhea. However, it's important to consult with a healthcare professional before using these medications, especially in cases of bacterial or parasitic infections.A heating pad or warm compress on the abdomen may help alleviate stomach cramps.Drink plenty of fluids, such as water, oral rehydration solutions, clear broths, or electrolyte drinks, to prevent dehydration.",
   "Want tips for treating food-poisoning? I have expert advice to share with you.Antidiarrheal medications (e.g., loperamide) may help control diarrhea. However, it's important to consult with a healthcare professional before using these medications, especially in cases of bacterial or parasitic infections.A heating pad or warm compress on the abdomen may help alleviate stomach cramps.Drink plenty of fluids, such as water, oral rehydration solutions, clear broths, or electrolyte drinks, to prevent dehydration."
@@ -559,6 +566,7 @@ var text=[
 },
 
 ];
+
 
 var appointmenttime = [
   {
@@ -1239,13 +1247,14 @@ var tokenizedData = tokenizer.tokenize(newString);
 // console.log(tokenizedData);
 
 var stems = tokenizedData.map(natural.PorterStemmer.stem)
+// var stems=tokenizedData;
 console.log(stems);
 var Analyzer = natural.SentimentAnalyzer;
 var stemmer = natural.PorterStemmer;
 var analyzer = new Analyzer("English", stemmer, "afinn");
 console.log(analyzer.getSentiment(stems));
  sentivalue = analyzer.getSentiment(stems);
-
+// console.log(sentivalue);
  newArr = stems.map(checkinputkeyword)
 
 // We can also obtain the raw phonetics of a word using process()
@@ -1262,7 +1271,7 @@ for (let i = 1; i < ansobject.length; i++) {
   }
 }
 console.log(maxIndex);
-var sentisentence=";"
+var sentisentence="wrong input";
 if(sentivalue<0){
   sentisentence=sense[1].message[Math.floor(Math.random() * sense[1].message.length)];
 }
@@ -1274,6 +1283,8 @@ else{
   sentisentence=sense[2].message[Math.floor(Math.random() * sense[2].message.length)];
 
 }
+
+
 if(typeof checkgenre(maxIndex)=="string"){
 
   res.json( sentisentence+" "+checkgenre(maxIndex));
@@ -1282,6 +1293,8 @@ else{
 res.json(checkgenre(maxIndex));
 
 }
+console.log(sentisentence);
+// res.json(sentisentence);
 console.log(ansobject);
 var ansobjectnew=ansobject;
 ansobjectnew.sort();
