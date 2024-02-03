@@ -67,11 +67,9 @@
        -->
       <span class="close-btn material-symbols-outlined">close</span>
     </header>
-    
-    
     <ul class="chatbox">
       <li class="chat incoming">
-        <span class="material-symbols-outlined"></span>
+        <span class="material-symbols-outlined">smart_toy</span>
         <p>Hi there 👋<br>How can I help you today?</p>
       </li>
     </ul>
@@ -100,8 +98,8 @@ localStorage.setItem("previouschat","");
  else{
  }
 
-{{!-- var url="https://med-ai-et9j.onrender.com"; --}}
-var url="http://localhost:5000";
+var url="https://med-ai-et9j.onrender.com";
+{{!-- var url="http://localhost:5000"; --}}
 
 
   const chatbotToggler = document.querySelector(".chatbot-toggler");
@@ -120,8 +118,7 @@ const createChatLi = (message, className) => {
     // Create a chat <li> element with passed message and className
     const chatLi = document.createElement("li");
     chatLi.classList.add("chat", `${className}`);
-    let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined" style=" 
-     background: url(images/videomodel.jpg) ;background-size: 100% 100%;"></span><p></p>`;
+    let chatContent = className === "outgoing" ? `<p></p>` : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
     chatLi.innerHTML = chatContent;
     console.log(message);
 
@@ -235,30 +232,6 @@ console.log(chatElement);
 
         
       messageElement.setAttribute("id", "nowtext");
-      var noans = [
-  "I apologize for any confusion. My training data is limited, and I may not comprehend all queries.",
-  "It seems I'm having difficulty grasping your request. Please provide more details or rephrase your question.",
-  "I'm just a healthcare chatbot and my knowledge is constrained to the data I've been trained on. Bear with me.",
-  "Your question might be beyond my current capabilities. Feel free to ask something simpler or more specific.",
-  "I'm still learning and might not have the necessary information to address your inquiry accurately.",
-  "I appreciate your patience. My responses are based on the patterns I learned during training.",
-  "I might not have encountered a similar query before, making it challenging for me to provide a meaningful response.",
-  "Understanding natural language can be tricky. I'll do my best to assist you within my limitations.",
-  "My training data is limited to healthcare topics, so I might struggle with non-health related queries.",
-  "Apologies if my responses are not meeting your expectations. I'm continuously learning and improving.",
-  "I'm designed for healthcare-related discussions, and deviations may result in uncertainties in my responses.",
-  "If you could provide more context, I might be able to assist you better. I appreciate your cooperation.",
-  "I acknowledge the complexity of your question, and I'm striving to enhance my understanding over time.",
-  "It seems I'm not catching the essence of your message. Could you rephrase it or provide additional information?",
-  "Thank you for your understanding. I'm here to help within the scope of my training data and capabilities."
-];
-      if(ans.trim()==""){
-  {{!-- ans="Sorry I couldn't understand you.I am just a healthcare chatbot and i just trained on small sample size datas..please do understand"; --}}
-  ans=noans[Math.floor(Math.random() * noans.length)];
-
-
-}
-
 
             window.ityped.init(document.querySelector('#nowtext'),{
                 strings: [ans],
@@ -266,8 +239,6 @@ console.log(chatElement);
         // Callback function to be executed when typing is finished
         // console.log('Typing finished!');
         stopVideo();
-clearerror();
-        
     document.getElementById("model").currentTime = 0;
 localStorage.setItem("previouschat",chatbox.innerHTML);
 
@@ -277,7 +248,6 @@ localStorage.setItem("previouschat",chatbox.innerHTML);
                 // loop: true
             })
 
-clearerror();
 
  
             messageElement.setAttribute("id", "overtext");
@@ -395,7 +365,7 @@ var ans="";
 
       fetch(url+"/output", {
       method: "POST",
-         {{!-- mode: "no-cors", --}}
+         mode: "no-cors",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -410,14 +380,10 @@ var ans="";
       .then((data) => {
         console.log(data);
 ans=data;
-     {{!-- var noans=["Sorry I couldn't understand you.I am just a healthcare chatbot and i just trained on small sample size datas..please do understand",""]; --}}
-  {{!-- alert(data+"hitted"); --}}
-  
-      })
-      .catch((err) => console.log(err));
 
-    // Clear the input textarea and set its height to default
-    chatInput.value = "";
+
+
+chatInput.value = "";
     
     {{!-- chatInput.style.height = `${inputInitHeight}px`; --}}
 
@@ -457,6 +423,12 @@ localStorage.setItem("previouschat",chatbox.innerHTML);
         
         
     }, 5500);
+       
+      })
+      .catch((err) => console.log(err));
+
+    // Clear the input textarea and set its height to default
+    
 }
 
 chatInput.addEventListener("input", () => {
@@ -773,14 +745,7 @@ function startVideo() {
     video.play();
   
 }
-function clearerror()
-{
-  var a=document.getElementsByClassName("ityped-cursor");
-  for(var i=0;i<a.length;i++){
-    a[i].style.visibility="hidden";
-  }
-}
-clearerror();
+
 // utterance.addEventListener('onend', function() {
 //         console.log('Speech has ended.');
 
@@ -854,7 +819,7 @@ function generateqrcode(link){
                 <a class="nav-link" href="">Doctors</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="">Chatbot</a>
+                <a class="nav-link" href="">Contact Us</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/profile">Profile</a>
